@@ -23,16 +23,14 @@ public class User {
     @Column(name = "age")
     private byte age;
 
-    @Column(name = "diagnosis")
-    private String diagnosis;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String name, String lastName, byte age, String diagnosis) {
+    public User(String name, String lastName, byte age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-        this.diagnosis = diagnosis;
     }
 
     // getters
@@ -53,12 +51,11 @@ public class User {
         return age;
     }
 
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
     // setters
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -72,7 +69,13 @@ public class User {
         this.age = age;
     }
 
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

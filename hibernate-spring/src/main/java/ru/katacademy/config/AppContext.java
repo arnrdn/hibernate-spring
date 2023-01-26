@@ -23,7 +23,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @ComponentScan(value = "ru.katacademy")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 public class AppContext {
 
     @Autowired
@@ -34,7 +34,7 @@ public class AppContext {
         LocalContainerEntityManagerFactoryBean emf
                 = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource());
-        emf.setPackagesToScan(new String[] { "ru.katacademy.model" });
+        emf.setPackagesToScan(new String[]{"ru.katacademy.model"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);
@@ -44,17 +44,17 @@ public class AppContext {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("db.driver"));
         dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername( env.getProperty("db.username") );
-        dataSource.setPassword( env.getProperty("db.password") );
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
 
     @Bean
-    public PlatformTransactionManager getTransactionManager() {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
@@ -62,7 +62,7 @@ public class AppContext {
     }
 
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 

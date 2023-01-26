@@ -1,15 +1,18 @@
 package ru.katacademy.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.katacademy.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Arrays;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Component
-public class UserDAOImpl implements IDAO{
+public class UserDAOImpl implements IDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -21,16 +24,31 @@ public class UserDAOImpl implements IDAO{
 
     @Override
     public void addUser(User user) {
-
+        entityManager.persist(user);
+        entityManager.flush();
     }
 
     @Override
     public void updateUser(User user) {
-
+        System.out.println(user.toString());
+        entityManager.merge(user);
+        entityManager.flush();
     }
 
     @Override
-    public void deleteUser(User user) {
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
+    }
 
+    @Override
+    public void deleteUser(Long id) {
+        User user = findById(id);
+
+        if (user == null) {
+            throw new NullPointerException("User not found");
+        }
+
+        entityManager.remove(user);
+        entityManager.flush();
     }
 }
