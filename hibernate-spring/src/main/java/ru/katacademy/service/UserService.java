@@ -4,7 +4,7 @@ import ru.katacademy.model.User;
 
 import java.util.List;
 
-public interface IService {
+public interface UserService {
     List<User> listUsers();
 
     void addUser(User user);

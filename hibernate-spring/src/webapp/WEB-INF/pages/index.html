@@ -25,8 +25,16 @@
                     <td th:text="${user.name}">...</td>
                     <td th:text="${user.lastName}">...</td>
                     <td th:text="${user.age}">...</td>
-                    <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
-                    <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+                    <td>
+                        <form th:action="@{user-update/{id}(id=${user.id})}">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form th:method="DELETE" th:action="@{user-delete/{id}(id=${user.id})}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             </th:block>
             </tbody>

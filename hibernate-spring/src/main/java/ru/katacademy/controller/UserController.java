@@ -4,19 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.katacademy.service.UserServiceImpl;
+import ru.katacademy.service.UserService;
 import ru.katacademy.model.User;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class IndexController {
+public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public IndexController(UserServiceImpl userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -40,7 +40,7 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/user-delete/{id}")
+    @DeleteMapping("/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
@@ -53,7 +53,7 @@ public class IndexController {
         return "/user-update";
     }
 
-    @PostMapping("/user-update")
+    @PutMapping("/user-update")
     public String updateUser(User user) {
         userService.updateUser(user);
         return "redirect:/";

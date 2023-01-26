@@ -9,7 +9,7 @@ import ru.katacademy.model.User;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements IService {
+public class UserServiceImpl implements UserService {
 
     private UserDAOImpl userDAO;
 

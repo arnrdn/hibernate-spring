@@ -4,7 +4,7 @@ import ru.katacademy.model.User;
 
 import java.util.List;
 
-public interface IDAO {
+public interface UserDAO {
     List<User> listUsers();
 
     void addUser(User user);
